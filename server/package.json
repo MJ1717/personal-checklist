@@ -16,5 +16,8 @@
     "url": "https://github.com/MJ1717/personal-checklist/issues"
   },
   "homepage": "https://github.com/MJ1717/personal-checklist#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
