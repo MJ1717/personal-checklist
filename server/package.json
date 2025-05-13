@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MJ1717/personal-checklist#readme",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "nodemon": "^3.1.10"
   }
 }

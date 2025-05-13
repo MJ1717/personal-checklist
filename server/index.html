@@ -19,11 +19,42 @@
         <button>Add</button>
     </form>
 
+    <div id="responseBox" style="margin-top: 20px;"></div>
+
+    <script>
+        const form = document.querySelector("form"); //find the first <form>
+        const input = document.getElementById("taskInput"); 
+
+        //addEventLisnter is javascript built in function
+        //it trigger when form element is submitted
+        //and function (event) is call back function so that it happens when form is submitted
+        form.addEventListener("submit", function (event) {
+            
+            event.preventDefault(); //normally when it is submitted, it reloads page but with this, it doesnt
+            const task = input.value; //get the id input's value ex) buy milk
+
+
+            //sending data to server
+            fetch("http://localhost:3000/tasks", {
+                method: "POST",
+                headers: { "Content-type": "application/json" }, 
+                body: JSON.stringify({title : task})
+            })
+            //after sending data to server, and after the server replies
+                .then(res => res.json()) //response is in json so we gotta remove the {}
+                .then(data => {
+                    document.getElementById("responseBox").textContent = data.message;
+                })
+                .catch(err => {
+                    document.getElementById("responseBox").textContent = err.error;
+                })
+
+
+            input.value = ""; //clear the task input section
+
+        });
+    </script>
+
 </body>
-
-
-
-
-
 
 </html>

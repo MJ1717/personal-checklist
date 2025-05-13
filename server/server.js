@@ -1,13 +1,20 @@
 // import express module
 const express = require('express');
 
+const cors = require('cors');
+
+
 //create app using express
 const app = express();
 
+
 const PORT = 3000;
+
+
 
 const tasks = [];
 
+app.use(cors());
 
 //when front end gives information it turns into js so we can use
 app.use(express.json());
