@@ -8,22 +8,52 @@
     </title>
 </head>
 
-<body style="text-align: center;">
-    <h1>
+<body>
+    <h1 style="text-align: center;">
         Task Checklist
     </h1>
 
     <!-- form is there to help submission (if u press enter, it reloads page and send data to server)  -->
-    <form>
+    <form style="text-align: center;">
         <input id="taskInput" type="text" placeholder="Enter a task" />
         <button>Add</button>
     </form>
 
-    <div id="responseBox" style="margin-top: 20px;"></div>
+    <div id="responseBox" style="margin-top: 30px; text-align: center;"></div>
+
+    <!-- ul is unordered list in html. it shows in bullet points -->
+    <ul id="taskList" style="margin-top: 30px;">
+    </ul>
 
     <script>
         const form = document.querySelector("form"); //find the first <form>
         const input = document.getElementById("taskInput"); 
+
+
+        function loadTask() {
+            //if theres no method: POST, by default, its GET
+            fetch("http://localhost:3000/tasks")
+                //after fetch, server replies
+                .then(res => res.json())
+                .then(data => {
+                    const taskList = document.getElementById("taskList");
+                    taskList.innerHTML = ""; //clear the old tasklist box
+
+                    //data is response array and we gonna interate one by one
+                    //single array is now one to-do object
+                    data.forEach(single_data => {
+                        // li is the list item. we create dummy li object so we can add each obejct into ul box
+                        //normally in <ul> <li> first item <li/> and <li> second item and blahblah
+                        const list_item = document.createElement("li");
+                        list_item.textContent = single_data.title;
+                        taskList.append(list_item);
+                    });
+
+                });
+
+
+        }
+
 
         //addEventLisnter is javascript built in function
         //it trigger when form element is submitted
@@ -44,6 +74,7 @@
                 .then(res => res.json()) //response is in json so we gotta remove the {}
                 .then(data => {
                     document.getElementById("responseBox").textContent = data.message;
+                    loadTask();
                 })
                 .catch(err => {
                     document.getElementById("responseBox").textContent = err.error;
@@ -53,6 +84,9 @@
             input.value = ""; //clear the task input section
 
         });
+
+
+
     </script>
 
 </body>
