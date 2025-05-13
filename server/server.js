@@ -13,7 +13,7 @@ const tasks = [];
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('he334o');
+    res.send('im testing');
 });
 
 
@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 });
 
 
-
+//app.post is triggered when frontend wants to send data to server
 //trigger when frontend send a post request on /tasks
 app.post('/tasks', (req, res) => {
     const task = req.body;
@@ -40,6 +40,7 @@ app.post('/tasks', (req, res) => {
 
 
 
+//app.get is triggered when frontend wants to get data from the server
 app.get('/tasks', (req, res) => {
     res.json(tasks);  // return all stored tasks
 });
