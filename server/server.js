@@ -42,7 +42,7 @@ app.post('/tasks', (req, res) => {
     tasks.push(task);
   
     //201 for created succesfuly
-    res.status(201).json({ message: "task added successfully", task });
+    res.status(201).json({ message: "Task added successfully", task });
   });
 
 
