@@ -41,12 +41,42 @@
 
                     //data is response array and we gonna interate one by one
                     //single array is now one to-do object
-                    data.forEach(single_data => {
+                    data.forEach( (single_data, index) => {
                         // li is the list item. we create dummy li object so we can add each obejct into ul box
                         //normally in <ul> <li> first item <li/> and <li> second item and blahblah
                         const list_item = document.createElement("li");
-                        list_item.textContent = single_data.title;
+                        
+
+                        //span is little text. we gonna put span inside list_item
+                        const span_text = document.createElement("span");
+                        span_text.textContent = single_data.title;
+
+                        //this is delete button
+                        const delete_btn = document.createElement("button");
+                        delete_btn.textContent = "DELETE";
+                        delete_btn.style.marginLeft = "20px";
+
+                        //now add span_text and delete button inside item_list
+                        list_item.append(span_text);
+                        list_item.append(delete_btn);
+                        list_item.style.marginTop = "20px";
                         taskList.append(list_item);
+
+                        //function when u press delete button
+                        delete_btn.onclick = function() {
+                            fetch("http://localhost:3000/tasks/" + index, {
+                                method: "DELETE"
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                document.getElementById("responseBox").textContent = data.message;
+                                loadTask();
+                            });
+
+                        };
+
+
+                    
                     });
 
                 });
